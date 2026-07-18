@@ -45,6 +45,212 @@ body {
   font-family: var(--ifm-font-family-base);
 }
 
+html.docs-doc-id-wiki\/wiki {
+  --wiki-index-border: rgba(30, 32, 35, 0.14);
+  --wiki-index-muted: var(--ifm-font-color-secondary);
+  --wiki-index-heading: #1e2023;
+}
+
+html.docs-doc-id-wiki\/wiki[data-theme='dark'] {
+  --wiki-index-border: rgba(255, 255, 255, 0.16);
+  --wiki-index-muted: #c1c1c6;
+  --wiki-index-heading: #f3f4f6;
+}
+
+html.docs-doc-id-wiki\/wiki .theme-doc-markdown > h1 {
+  color: var(--wiki-index-heading);
+  font-size: clamp(2.15rem, 4vw, 3rem);
+  line-height: 1.12;
+  margin-bottom: 0.9rem;
+}
+
+html.docs-doc-id-wiki\/wiki .theme-doc-markdown > h1 + p {
+  color: var(--wiki-index-muted);
+  font-size: 1rem;
+  line-height: 1.72;
+  margin-bottom: 1.7rem;
+  max-width: 58ch;
+}
+
+.wiki-index__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0 0 2.6rem;
+}
+
+.wiki-index__actions .button {
+  align-items: center;
+  border-radius: 4px;
+  display: inline-flex;
+  font-size: 0.9rem;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.6rem 1rem;
+}
+
+.wiki-index__actions .button--primary {
+  --ifm-button-color: #ffffff;
+  color: #ffffff !important;
+}
+
+.wiki-index__actions .button--primary:hover {
+  color: #ffffff !important;
+}
+
+.wiki-index__actions .button--secondary {
+  background: transparent;
+  border-color: transparent;
+  color: var(--ifm-color-primary-dark);
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
+.wiki-index__actions .button--secondary:hover {
+  background: transparent;
+  border-color: transparent;
+  color: var(--ifm-color-primary-darkest);
+}
+
+html.docs-doc-id-wiki\/wiki .theme-doc-markdown > h2 {
+  align-items: center;
+  border-top: 1px solid var(--wiki-index-border);
+  display: flex;
+  color: var(--wiki-index-heading);
+  font-size: 1.3rem;
+  gap: 0.7rem;
+  line-height: 1.35;
+  margin: 2.5rem 0 1rem;
+  padding-top: 1.35rem;
+}
+
+html.docs-doc-id-wiki\/wiki .theme-doc-markdown > h2::before {
+  background: var(--ifm-color-primary);
+  content: '';
+  height: 1.3rem;
+  width: 3px;
+}
+
+.wiki-index__grid {
+  display: grid;
+  column-gap: 2.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.wiki-index__grid::before {
+  border-top: 1px solid var(--wiki-index-border);
+  content: '';
+  grid-column: 1 / -1;
+}
+
+.wiki-index__card,
+.wiki-index__tools a {
+  border-bottom: 1px solid var(--wiki-index-border);
+  color: var(--ifm-font-color-base);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 1.2rem 0 1.25rem;
+  position: relative;
+  text-decoration: none;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+
+.wiki-index__card strong,
+.wiki-index__tools strong {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.wiki-index__card strong {
+  margin-top: 0;
+}
+
+.wiki-index__card span,
+.wiki-index__tools span {
+  color: var(--wiki-index-muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  margin-top: 0.45rem;
+}
+
+.wiki-index__card:hover,
+.wiki-index__tools a:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary-darkest);
+  text-decoration: none;
+}
+
+.wiki-index__card:hover strong,
+.wiki-index__tools a:hover strong {
+  color: inherit;
+}
+
+.wiki-index__card:focus-visible,
+.wiki-index__tools a:focus-visible,
+.wiki-index__actions .button:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 3px;
+}
+
+.wiki-index__grid--tasks .wiki-index__card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.wiki-index__tools {
+  display: grid;
+  column-gap: 2.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.wiki-index__tools a {
+  min-height: 0;
+}
+
+@media (max-width: 640px) {
+  html.docs-doc-id-wiki\/wiki .theme-doc-markdown > h1 {
+    font-size: 2.15rem;
+  }
+
+  html.docs-doc-id-wiki\/wiki .theme-doc-markdown > h1 + p {
+    font-size: 1rem;
+  }
+
+  .wiki-index__actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wiki-index__actions .button {
+    min-width: 0;
+  }
+
+  .wiki-index__grid,
+  .wiki-index__tools {
+    column-gap: 0;
+    grid-template-columns: 1fr;
+  }
+
+  .wiki-index__card,
+  .wiki-index__tools a {
+    min-height: 0;
+  }
+
+  .wiki-index__grid--tasks .wiki-index__card:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wiki-index__card,
+  .wiki-index__tools a {
+    transition: none;
+  }
+}
+
 p {
   margin-top: 0rem;
   margin-bottom: 1rem;

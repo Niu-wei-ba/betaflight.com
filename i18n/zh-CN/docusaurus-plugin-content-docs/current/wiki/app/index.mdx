@@ -1,0 +1,154 @@
+# Betaflight App
+
+Betaflight App，原名 Betaflight Configurator，用于配置运行 Betaflight 固件的飞控。本节介绍 App 本身的使用方式，以及其中各页面和功能的用途。
+
+![Betaflight App](/img/betaflight_configurator_welcome_tab.png)
+
+## 使用方式
+
+电脑端最新版 Betaflight App 可通过 https://app.betaflight.com 使用；Android 原生应用可从[发布页面](https://github.com/betaflight/betaflight-configurator/releases/latest)下载最新版本。
+
+:::info
+
+- Betaflight App 10.10.0 兼容 Betaflight 固件 4.5.3 至 4.2.x。
+- Betaflight App 2025.12.1 兼容 Betaflight 固件 2025.12.x、4.5.x 至 4.3.x。
+
+:::
+
+网页版 App（2025.12.1 及后续版本）需要支持 [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)、[WebSerial API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API)，以及可选 [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API) 的 Chromium 内核桌面浏览器。Chrome 和 Edge 是最常见且通常已安装的选择。若不希望使用专有 Chromium 发行版，也可选用 [ungoogled-chromium](https://github.com/ungoogled-software/ungoogled-chromium)、[Thorium](https://github.com/Alex313031/thorium/) 或 [Helium](https://github.com/imputnet/helium) 等开源替代品。
+
+:::warning
+
+Brave 等经过深度修改、尤其侧重隐私保护的浏览器，即使基于 Chromium，也可能因默认启用的严格安全设置而无法稳定工作。App 整体应仍可使用，但部分功能可能不符合预期。遇到问题时，请先改用其他浏览器再提交 issue。
+
+:::
+
+新版 App 以 PWA（渐进式 Web 应用，[Wikipedia](https://en.wikipedia.org/wiki/Progressive_web_app)、[MDN](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)）形式构建。也就是说，尽管它是 Web 应用，但可完全离线使用，也可通过浏览器地址栏安装，随后会像普通应用一样显示并运行在桌面或移动设备上。
+
+![Betaflight App - 安装为 PWA](/img/betaflight_configurator_install_pwa.png)
+
+旧版 App 仅以 Windows、macOS、Linux 和 Android 原生程序形式提供，可从[发布页面](https://github.com/betaflight/betaflight-configurator/releases)下载。
+
+## 连接飞控
+
+可通过 USB 有线连接，也可通过 Bluetooth 或 ELRS Wi-Fi TCP/IP 无线连接 App 与飞控。
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs queryString="connection">
+
+<TabItem value="usb-web" label="USB - 网页版 App" default>
+
+1. 首次连接飞控时，在右上角的端口选择下拉菜单中选择 `I can't find my USB device`。
+
+   ![Betaflight App - 添加 USB 设备](/img/betaflight_configurator_add_usb_device.png)
+
+2. 浏览器会打开原生设备选择对话框，选择要连接的设备。
+
+   ![Betaflight App - 原生设备选择](/img/betaflight_configurator_native_usb_device_select.png)
+
+3. 选择设备并点击 `Connect` 后，端口选择菜单中会显示该飞控；之后再次连接时无需重复添加。
+
+   ![Betaflight App - USB 设备](/img/betaflight_configurator_usb_device.png)
+
+4. 在端口选择菜单中选定设备后，点击 `Connect` 连接 App，即可访问各页面和功能。
+
+</TabItem>
+
+<TabItem value="bluetooth-web" label="蓝牙 - 网页版 App">
+
+网页版 App 支持通过 Bluetooth 无线连接兼容飞控。它兼容所有受 SpeedyBee 移动 App 支持的飞控，以及部分仅由 Betaflight App 支持的硬件。
+
+连接流程与 USB 基本相同：
+
+1. 首次连接时，在右上角的端口选择下拉菜单中选择 `I can't find my Bluetooth device`。
+
+   ![Betaflight App - 添加蓝牙设备](/img/betaflight_configurator_add_bluetooth_device.png)
+
+2. 浏览器会打开原生设备选择对话框，选择要连接的设备。
+
+   ![Betaflight App - 原生设备选择](/img/betaflight_configurator_native_bluetooth_device_select.png)
+
+3. 选择设备并点击 `Pair` 后，端口选择菜单中会显示该飞控；之后再次连接时无需重复添加。
+
+   ![Betaflight App - 蓝牙设备](/img/betaflight_configurator_bluetooth_device.png)
+
+4. 在端口选择菜单中选定设备后，点击 `Connect` 连接 App，即可访问各页面和功能。
+
+</TabItem>
+
+<TabItem value="usb-native" label="USB - 原生 App">
+
+1. 使用原生 App 时，例如旧版本或 Android 版本，通过 USB 连接飞控后，它应立即出现在右上角的端口选择下拉菜单中。
+
+   ![Betaflight App - 端口选择](/img/betaflight_configurator_com_ports.png)
+
+2. 在端口选择菜单中选定设备后，点击 `Connect` 连接 App，即可访问各页面和功能。
+
+</TabItem>
+
+<TabItem value="elrs-native" label="ELRS - 原生 App">
+
+:::warning
+
+截至 2025.12.1，此功能仍在持续完善。请在 [GitHub 问题跟踪器](https://github.com/betaflight/betaflight/issues)提交发现的问题。
+
+:::
+
+最新版 App（2025.12.1）支持移动设备通过 Wi-Fi TCP/IP，经由 ELRS 接收机连接飞控。
+
+1. 确认 `Options` 页面已启用 `Enable manual connection mode`。
+
+   ![Betaflight App - 启用手动连接模式](/img/betaflight_configurator_enable_manual_connection.png)
+
+2. 通过 Wi-Fi 连接 ELRS 接收机，或连接接收机所使用的同一网络。
+3. 在端口选择下拉菜单中选择 `Manual connection`。若直连接收机，输入 `10.0.0.1`；若接入同一网络，则输入它的本地 IP 地址。
+
+   ![Betaflight App - 手动连接](/img/betaflight_configurator_manual_connection.png)
+
+4. 点击 `Connect` 连接飞控。
+
+</TabItem>
+
+</Tabs>
+
+### 连接问题
+
+[故障排除](/docs/wiki/getting-started/troubleshooting#connecting-issues)页面列出了常见连接问题。仍无法连接时，可加入 [Discord 服务器](https://discord.gg/betaflight)，在支持频道中简要说明问题并寻求帮助。请避免使用 LLM 或其他 AI 工具排查连接问题，它们常会给出错误或误导性建议，使问题更加复杂。
+
+## 为什么改为 Web App？
+
+以及，为什么版本号也变了？
+
+如果你已飞行一段时间，应该熟悉曾面向 Windows、macOS、Linux 和 Android 提供的原生 Configurator，也就是需要手动下载安装的应用。随着最新版发布，你可能会疑惑：为什么改用 Web App，而不是继续开发原生应用？也可能会顾虑是否应使用一个“看起来像网站的工具”来配置机队。
+
+下面会简要回顾 Configurator 的发展历史，说明幕后发生了什么，并尽量用不那么生硬的方式来讲述。
+
+### 历史
+
+资深飞手，尤其是 2017 年前就开始使用 Betaflight 的用户，可能记得 Betaflight Configurator 曾是 Chrome Web Store 中的 “Chrome App”，也就是如今扩展程序所在的商店。Chrome App 可以把 Web 应用封装为更接近桌面原生应用的体验，同时提供使用 USB 所需的 API。
+
+**Configurator 从一开始就很接近“封装后的 Web 应用”。**
+
+在 Baseflight 时代，Configurator 于 2014 年发布 [0.24](https://github.com/betaflight/betaflight-configurator/releases/tag/v0.24)，2017 年发展到 [1.9.4](https://github.com/betaflight/betaflight-configurator/releases/tag/v1.9.4)，随后升级为 [3.1.4](https://github.com/betaflight/betaflight-configurator/releases/tag/v3.1.1)，使 Configurator 版本号与固件版本号一致。
+
+但版本号同步持续不足一年。Chrome App 计划于 2018 年弃用，因此一切都必须迁移。Configurator 被移植到 NWJS，这一框架让当时的开发者能够在不依赖淘汰技术的前提下，将 Chrome App 轻松封装成桌面原生风格体验。2017 年 12 月发布 [10.0.0](https://github.com/betaflight/betaflight-configurator/releases/tag/10.0.0) 后，Windows、macOS 和 Linux 均获得原生 Configurator，但版本号与固件分离的情况也由此困扰了很多新用户多年。
+
+之后数年，Configurator 与固件同步迭代。2020 年 6 月的 [10.7.0](https://github.com/betaflight/betaflight-configurator/releases/tag/10.7.0) 提供了 Android 原生 Configurator，具体通过 Cordova 封装。模式很明显：多年来，我们一直在将 Web 代码封装进当时可用的原生外壳中。
+
+### 现状
+
+时间来到 2024 年末至 2025 年初，即 Configurator 10.10.0 发布之后。NWJS 和 Cordova 已伴随 Configurator 接近十年，开发越来越慢、维护越来越困难，也逐渐显得陈旧。与此同时，浏览器原生技术不断成熟，已足以将现有代码从曾用于提供底层访问、如今却阻碍开发的原生外壳中取出，并作为普通 Web App 提供。
+
+这正是 10.10.0 发布后持续推进的工作。期间，App 获得了显著的界面更新、Bluetooth 支持以及更多功能。摆脱旧技术后，开发速度更快，也更容易吸引新贡献者：10.10.0 有 27 位贡献者，而 2025.12.1 有 43 位。该版本遵循新的固件版本规则，希望这次能维持超过一年。
+
+不过事情并非完全简单。移动设备浏览器的原生访问能力仍不及桌面端：移动端 Web App 至少应支持 Bluetooth，但 USB 和 ELRS TCP 仍需使用新的原生 App。老旧的 Cordova 已被现代替代方案 Capacitor 取代，它应能提供更高灵活性而不影响开发效率。
+
+多数飞手可直接在桌面浏览器中使用 App，无需下载或安装。对于从 Firefox 阵营回到 Chromium 的用户，感谢你们愿意再试一次。近年来非 Google 生态的 Chromium 浏览器已有显著进步。作者注：作者平时仍更偏好 Firefox 系的 Zen，但 Chromium 也有其适用场景。
+
+### 未来
+
+与固件一样，App 已变得更加模块化，也更容易跨平台维护。未来或许会再次出现更多原生选项。当前工作则是让应用其余部分达到现代标准：越来越多代码正从 jQuery 迁移至更现代的 Vue 框架，这也会让不熟悉旧技术的新贡献者更容易参与。
+
+本文撰写时，2025.12.1 刚发布数日。大多数情况下，飞手无需下载并安装每个新补丁版本；与整个周期固定在初始版本的旧模式不同，App 会持续在主 URL 提供更新和改进。最终的 Betaflight App 2026.6 将在主 URL 上提供，2025.12.x 则会迁移到单独的 URL。

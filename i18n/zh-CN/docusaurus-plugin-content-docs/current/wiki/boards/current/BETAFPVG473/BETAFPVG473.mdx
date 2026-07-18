@@ -1,0 +1,122 @@
+---
+description: BETAFPV Air Brushless Flight Controller (G4)
+sidebar_custom_props:
+  specs:
+    target: BETAFPVG473
+    mcu: STM32G473 # STM32G473CEU6 (verified — manufacturer)
+    imu: ICM42688P # ships with ICM42688P; config also carries BMI270 as an alternate driver
+    osd: MAX7456 # config USE_MAX7456; BETAFPV markets a "custom OSD chip" — likely a MAX7456-compatible part
+    barometer: '' # TODO(verify): config enables BMP280/DPS310 drivers only; no baro in the marketing spec — unconfirmed populated (1S whoop AIOs usually omit it)
+    blackbox: 2MB # M25P16 = 16 Mbit = 2 MB (config); BETAFPV's "16MB" marketing figure is 16 Mbit
+    dimensions: TODO # verify from manufacturer (board outline)
+    mounting: 26 x 26 mm # mounting-hole pattern (manufacturer); board outline still TODO
+    weight: 2.9 g (4IN1) / 3.6 g (5IN1) # verified — manufacturer
+  last_updated: '2026-07-06'
+  support_url: 'https://betafpv.com/products/air-brushless-flight-controller'
+  betaflight_supported: true
+  connector_standard: false # 1S AIO with SH1.0 connectors; does not follow the Betaflight Connector Standard
+  doc_status: partial # core identity + electricals verified against manufacturer; pad labels, pinouts, dimensions and some rails still flagged
+  confidence: 80 # identity locked by the manufacturer firmware-target string; VTX/ESC/weight/BEC/mounting confirmed by BETAFPV/GetFPV/Amazon. Remaining TODOs: board outline, pad labels, pinouts, images
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import SpecGrid from '@site/src/components/SpecGrid'
+
+# BETAFPV Air Brushless Flight Controller (G4)
+
+{/* Identity: the `BETAFPVG473` firmware target is BETAFPV's first STM32G473-based 1S AIO — the Air Brushless FC, sold in 4IN1 (FC + ESC + VTX + OSD) and 5IN1 (adds onboard Serial ELRS 2.4GHz RX) versions. BETAFPV's Matrix 1S line also uses the G473 MCU and may flash a different/revision target. */}
+
+<Tabs>
+
+<TabItem value="specifications" label="规格" default>
+
+<SpecGrid>
+
+{/* TODO(image): add a 1:1 square cover photo (top view), supplied by the manufacturer. e.g. ![BETAFPVG473](./BETAFPVG473-images/BETAFPVG473-top.png) */}
+
+</SpecGrid>
+
+## 其他特性
+
+- 集成 ESC：有，集成 1S ESC 驱动 4 个电机（配置定义 MOTOR1-4），持续电流最高约 5 A；BB51 运行 Bluejay（96 kHz），支持 DShot300/600。电机直接焊接到板上。（产品名中的“4IN1”指集成的 FC、ESC、VTX 和 OSD 四个子系统，而不是 ESC 通道数。）
+- 板载 VTX：有，5.8 GHz 模拟图传、48 个频道、25/100/200/400 mW + PIT，默认通过 UART2 控制 SmartAudio 2.0
+- SD 卡插槽：无
+- 板载接收机：取决于版本：4IN1 无接收机；5IN1 板载串行 ELRS 2.4 GHz 接收机（UART3 上为 CRSF）。空闲 UART 支持外置 CRSF/SBUS 接收机。
+- 硬件反相器：无
+- Bluetooth：无 {/* TODO(verify): not stated in the manufacturer spec; not in config.h */}
+- WiFi：无 {/* TODO(verify): not stated in the manufacturer spec; not in config.h */}
+- 板载 RGB LED：待确认 {/* verify: count of Betaflight-controlled LEDs — config exposes an addressable LED strip pad (PB2), not confirmed as an onboard RGB LED */}
+
+## 输入/输出
+
+- USB 接口：通过 SH1.0 4 针连接器连接外置 USB 转接器（板上无 USB 插座）
+- 电机输出：4 路（集成 4 合 1 ESC，直接焊接）
+- UART：4 个（UART2 默认专用于板载 VTX，其余 3 个可供外部设备使用）
+- I2C：有（I2C1）
+- SWD：待确认 {/* verify: normally Yes on STM32G473; SWD pad exposure not confirmed from manufacturer material */}
+- SPI：仅内部使用 {/* config defines SPI1 (gyro), SPI2 (OSD), SPI3 (flash); TODO(verify) whether any SPI is broken out to user pads */}
+- 5 V 输出：有，5 V/3 A BEC（制造商规格）{/* pad count/exposure still TODO from a cited wiring diagram */}
+- 电流传感器：有，来自集成 4 合 1 ESC（配置：PA1 上的 CURRENT_METER_ADC，标度 750）
+- 模拟 RSSI 输入：无
+- LED 灯带输出：有（PB2）
+- 蜂鸣器输出：有（配置为 PA8，反相，外接蜂鸣器焊盘）
+
+## 焊盘
+
+{/* Function column below is config-derived (default assignments); silkscreen Label and physical pad exposure are TODO(verify) from a manufacturer wiring diagram. */}
+
+### UART
+
+| 名称   | TX/RX 引脚  | 标签 | 默认功能                                    |
+| ------ | ----------- | ---- | ------------------------------------------- |
+| UART 1 | PA9 / PA10  | TODO | 空闲（通用）                                |
+| UART 2 | PA2 / PA3   | TODO | 板载 VTX：SmartAudio（VTX_SMARTAUDIO_UART） |
+| UART 3 | PB10 / PB11 | TODO | 串行 RX：CRSF（5IN1 板载 ELRS/外置接收机）  |
+| UART 4 | PC10 / PC11 | TODO | 空闲（通用）                                |
+
+### 电源
+
+{/* Pad counts and current ratings are not in config.h — TODO(verify) from a manufacturer wiring/pinout diagram. */}
+
+| 名称       | 标签 | 数量 | 备注                                                     |
+| ---------- | ---- | ---- | -------------------------------------------------------- |
+| 电池电压   | TODO | TODO | 1S 输入；PA0 进行电压检测（配置：VOLTAGE_METER_ADC）     |
+| 5 V（BEC） | TODO | TODO | 5 V/3 A BEC（制造商规格）；焊盘数量/标签待根据接线图确认 |
+
+{/* TODO(verify): document ESC signal pads, video pads, buzzer pads, I2C pads, SWD pads, etc. — see the example doc. */}
+
+## 连接器
+
+该板使用 BETAFPV SH1.0 连接器，其中包括一个用于外置 USB 转接器的 4 针 SH1.0 接口。
+
+{/* TODO(verify): document each SH1.0 connector's pinout (USB adapter port, and any RX/serial port) from the manufacturer wiring diagram — pinouts are not in config.h. */}
+
+</TabItem>
+
+<TabItem value="wiring" label="接线图">
+
+{/* TODO(image): add wiring / pinout diagram to ./BETAFPVG473-images/, supplied by the manufacturer. */}
+
+</TabItem>
+
+<TabItem value="photos" label="照片">
+
+{/* TODO(image): add clean top/bottom photos to ./BETAFPVG473-images/, supplied by the manufacturer. */}
+
+</TabItem>
+
+<TabItem value="notes" label="备注">
+
+- 制造商：[BETAFPV Hobby](https://betafpv.com/)，产品页：[Air Brushless Flight Controller](https://betafpv.com/products/air-brushless-flight-controller)
+- 这是面向超轻型 FPV Whoop 的 1S 一体式（AIO）板卡：在超薄（0.8 mm）PCB 上集成 4 合 1 ESC、模拟 VTX 和 OSD。电机直接焊接到板上。
+- **Blackbox 容量：**配置声明使用 M25P16 Flash（16 Mbit = **2 MB**）。BETAFPV 宣传的“16 MB Blackbox”混淆了 Mbit 和 MB，实际指的是同一颗 16 Mbit 器件。
+- **OSD：**固件使用 MAX7456 驱动；BETAFPV 称其为“定制微型 OSD 芯片”，最可能是兼容 MAX7456 的器件（具体丝印尚未确认）。
+- **陀螺仪：**出厂搭载 ICM42688P；该 target 还包含 BMI270 驱动作为备用驱动。
+- **气压计：**该 target 启用了 BMP280 和 DPS310 驱动，但制造商规格中未列出气压计。因此这只能视为固件驱动支持/引脚预留，不能确认板载了传感器。
+- 版本：**4IN1**（FC + ESC + VTX + OSD，约 2.9 g）和 **5IN1**（增加板载串行 ELRS 2.4 GHz 接收机，约 3.6 g）。
+- 相关产品：BETAFPV 的 **Matrix 1S** 系列也使用 STM32G473 MCU；将本页面用于 Matrix 板卡前，请确认确切的固件 target。
+
+</TabItem>
+
+</Tabs>

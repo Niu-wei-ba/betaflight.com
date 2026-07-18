@@ -1,0 +1,58 @@
+{
+  "link.title.Youtube": {
+    "message": "YouTube",
+    "description": "The title of the footer links column with title=Youtube in the footer"
+  },
+  "link.title.Links": {
+    "message": "链接",
+    "description": "The title of the footer links column with title=Links in the footer"
+  },
+  "link.title.Community": {
+    "message": "社区",
+    "description": "The title of the footer links column with title=Community in the footer"
+  },
+  "link.title.Feeds": {
+    "message": "订阅源",
+    "description": "The title of the footer links column with title=Feeds in the footer"
+  },
+  "link.item.label.Joshua Bardwell": {
+    "message": "Joshua Bardwell",
+    "description": "The label of footer link with label=Joshua Bardwell linking to https://www.youtube.com/channel/UCX3eufnI7A2I7IkKHZn8KSQ"
+  },
+  "link.item.label.Ivan Efimov": {
+    "message": "Ivan Efimov",
+    "description": "The label of footer link with label=Ivan Efimov linking to https://www.youtube.com/channel/UCQtdpSBYlsWH6_m1Us_d8dg"
+  },
+  "link.item.label.Oscar Liang": {
+    "message": "Oscar Liang",
+    "description": "The label of footer link with label=Oscar Liang linking to https://oscarliang.com/"
+  },
+  "link.item.label.VitroidFPV": {
+    "message": "VitroidFPV",
+    "description": "The label of footer link with label=VitroidFPV linking to https://www.vitroidfpv.com/"
+  },
+  "link.item.label.Discord": {
+    "message": "Discord",
+    "description": "The label of footer link with label=Discord linking to https://discord.betaflight.com/invite"
+  },
+  "link.item.label.IntoFPV": {
+    "message": "IntoFPV",
+    "description": "The label of footer link with label=IntoFPV linking to https://intofpv.com/"
+  },
+  "link.item.label.RSS": {
+    "message": "RSS",
+    "description": "The label of footer link with label=RSS linking to /blog/rss.xml"
+  },
+  "link.item.label.Atom": {
+    "message": "Atom",
+    "description": "The label of footer link with label=Atom linking to /blog/atom.xml"
+  },
+  "link.item.label.JSON": {
+    "message": "JSON",
+    "description": "The label of footer link with label=JSON linking to /blog/feed.json"
+  },
+  "copyright": {
+    "message": "版权所有 © 2026 Betaflight 团队",
+    "description": "The footer copyright"
+  }
+}

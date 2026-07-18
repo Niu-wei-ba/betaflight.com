@@ -1,0 +1,147 @@
+---
+description: GEPRC GEP-F722-HD
+sidebar_custom_props:
+  specs:
+    target: GEPRCF722
+    mcu: STM32F722
+    imu: MPU6000 / ICM42688P / LSM6DSK320X
+    osd: AT7456E
+    barometer: BMP280 / DPS310
+    blackbox: 16MB
+    dimensions: 36.85 x 36.85 mm
+    mounting: 30.5 x 30.5 mm
+    weight: 8.1 g
+  last_updated: '2026-07-06'
+  support_url: 'https://geprc.com/product/gep-f722-hd-flight-controller/'
+  betaflight_supported: true
+  connector_standard: false
+  doc_status: partial
+  confidence: 79
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import SpecGrid from '@site/src/components/SpecGrid'
+
+# GEPRC GEP-F722-HD
+
+{/* The GEPRCF722 firmware target serves the non-Bluetooth GEP-F722-HD flight controller (V1 shipped an MPU6000 gyro; V2 shipped an ICM42688-P). The Bluetooth variants use separate targets (GEPRCF722BT, GEPRCF722_BT_HD, GEPRCF722_BT_HD_V3). */}
+
+<Tabs>
+
+<TabItem value="specifications" label="规格" default>
+
+<SpecGrid>
+
+{/* TODO(image): add a 1:1 square cover photo (top view), supplied by the manufacturer. e.g. ![GEPRCF722](./GEPRCF722-images/GEPRCF722-top.png) */}
+
+</SpecGrid>
+
+## 其他特性
+
+- SD 卡插槽：无（Blackbox 使用 16 MB 板载 SPI Flash）
+- 板载接收机：无
+- 硬件反相器：无
+- Bluetooth: No {/* the GEPRCF722 target is the non-BT variant; the BT variants use the GEPRCF722BT / GEPRCF722_BT_HD targets */}
+- WiFi：无
+- 板载 RGB LED：无（仅有两个状态 LED）
+
+## 输入/输出
+
+- USB 接口：USB Type-C
+- 电机输出：6 路（固件）；ESC 连接器仅引出 M1-M4
+- UART：5 个（UART1、2、3、4、6）
+- I2C：有（I2C1，SDA/SCL 焊盘用于外置罗盘/GPS）
+- SWD：无（SWDIO/SWCLK 的 PA13/PA14 被复用为板载状态 LED）
+- SPI：无（仅有三个内部总线：SPI1 OSD、SPI2 Flash、SPI3 陀螺仪）
+- 3.3 V 输出：有（3V3 焊盘）
+- 4.5 V（VBUS）输出：无
+- 5 V 输出：有，5 V/3 A
+- 9 V 输出：有，9 V/2.5 A
+- 电流传感器：通过 ESC（CUR 焊盘的电流信号；随附 50 A 4 合 1 ESC 默认电流标度为 179）
+- 模拟 RSSI 输入：有（RSI 焊盘）
+- LED 灯带输出：有（LEDS 焊盘）
+- 蜂鸣器输出：有（BZ+/BZ- 焊盘）
+
+## 焊盘
+
+丝印标签来自 GEP-F722-HD 手册；MCU 引脚来自 `config.h`。
+
+### UART
+
+| 名称   | 标签      | 备注                                                                 |
+| ------ | --------- | -------------------------------------------------------------------- |
+| UART 1 | T1 / R1   | TX1 = PA9, RX1 = PA10; on the VTX / DJI Air Unit connector           |
+| UART 2 | T2 / R2   | TX2 = PA2, RX2 = PA3; receiver pads (RX2 also carries the PPM input) |
+| UART 3 | TX3 / RX3 | TX3 = PB10, RX3 = PB11                                               |
+| UART 4 | RX4       | RX4 = PA1 (TX4 = PA0); ESC telemetry on the ESC connector            |
+| UART 6 | TX6 / RX6 | TX6 = PC6, RX6 = PC7                                                 |
+
+### 电源
+
+{/* TODO(verify): pad counts per rail are not in config.h and could not be read reliably from the manual diagram. */}
+
+| 名称       | 标签     | 数量 | 备注                            |
+| ---------- | -------- | ---- | ------------------------------- |
+| 电池电压   | BAT / VB | TODO | 3-6S LiPo 输入；VBAT 检测 = PC0 |
+| 9 V 输出   | 9V       | TODO | VTX/相机 BEC，9 V/2.5 A         |
+| 5 V 输出   | 5V       | TODO | 5 V/3 A                         |
+| 3.3 V 输出 | 3V3      | TODO | 接收机供电                      |
+| 地         | GND / G  | TODO | —                               |
+
+### 信号
+
+| 名称           | 标签      | 备注                                                                                                                                     |
+| -------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Current signal | CUR       | Analog current from the 4-in-1 ESC; ADC_CURR = PC1                                                                                       |
+| RSSI           | RSI       | Analog RSSI input; ADC_RSSI = PC2                                                                                                        |
+| LED strip      | LEDS      | PA8                                                                                                                                      |
+| Buzzer         | BZ+ / BZ- | PC13 (inverted)                                                                                                                          |
+| I2C            | SDA / SCL | I2C1; SDA = PB9, SCL = PB8 (external compass / GPS)                                                                                      |
+| Video out      | VO        | Analog video output to VTX {/* TODO(verify): camera-in / video pad labels C1/C2/S5 on the manual could not be mapped with confidence */} |
+
+## 连接器
+
+### ESC 连接器（30.5 x 30.5 mm，8 针）
+
+与随附的 BLHeli_32 50 A 4 合 1 ESC 配对使用。
+
+| 引脚 | 功能                       |
+| ---- | -------------------------- |
+| GND  | 地                         |
+| BAT  | 电池电压输入（3-6S）       |
+| M1   | 电机 1 信号（PB4）         |
+| M2   | 电机 2 信号（PB5）         |
+| M3   | 电机 3 信号（PB0）         |
+| M4   | 电机 4 信号（PB1）         |
+| CUR  | 电流传感器信号             |
+| RX4  | ESC 遥测（UART4 RX = PA1） |
+
+{/* TODO(verify): the VTX / DJI Air Unit connector pinout (labels 9V, GND, VO, T1, R1 read from the manual) could not be confirmed pin-order from the source material. */}
+
+</TabItem>
+
+<TabItem value="wiring" label="接线图">
+
+{/* TODO(image): add wiring / pinout diagram to ./GEPRCF722-images/, supplied by the manufacturer. */}
+
+</TabItem>
+
+<TabItem value="photos" label="照片">
+
+{/* TODO(image): add clean top/bottom photos to ./GEPRCF722-images/, supplied by the manufacturer. */}
+
+</TabItem>
+
+<TabItem value="notes" label="备注">
+
+- 制造商：[GEPRC](https://geprc.com/)，产品页：[GEP-F722-HD 飞控](https://geprc.com/product/gep-f722-hd-flight-controller/)（另见 [V2 页面](https://geprc.com/product/gep-f722-hd-v2-flight-controller/)。）
+- GEPRCF722 target 对应非 Bluetooth 版 GEP-F722-HD。硬件修订版的陀螺仪（V1：MPU6000；V2：ICM42688-P）和气压计（BMP280/DPS310）不同；固件会自动识别已安装的器件，因此 `config.h` 列出了多个驱动。
+- OSD 芯片为 AT7456E（兼容 MAX7456）；Betaflight 使用 `MAX7456` 驱动。
+- 该板与 30.5 x 30.5 mm 的 BLHeli_32 50 A 4 合 1 ESC 配对，并通过 VTX 连接器支持 DJI FPV Air Unit。
+- 不支持 SWD 调试：SWDIO/SWCLK 引脚（PA13/PA14）用于驱动板载状态 LED。
+- MCU：`config.h` 声明 `FC_TARGET_MCU STM32F7X2`，这是系列别名而非具体型号；实际的 `STM32F722` 是依据 GEPRC 产品规格独立确认的，并非来自 config.h。
+
+</TabItem>
+
+</Tabs>

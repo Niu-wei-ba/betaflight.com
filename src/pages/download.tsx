@@ -55,7 +55,7 @@ export default function Media() {
   }, [isXl]);
 
   return (
-    <BetaflightLayout>
+    <BetaflightLayout title="Downloads" description="花生FPV 提供 Betaflight 固件、BF地面站与黑匣子工具的下载和使用入口。">
       <div className="m-auto p-6 mt-0 xl:mt-16">
         {/* Start Downloads block */}
 

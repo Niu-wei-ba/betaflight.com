@@ -1,107 +1,78 @@
-name: 'Deployment'
+name: Deploy Wiki
+
 on:
-  pull_request_target:
-    branches:
-      - master
   push:
     branches:
       - master
+  workflow_dispatch:
+
+env:
+  DEPLOY_HOST: 106.54.16.124
+  DEPLOY_USER: root
+  DEPLOY_ROOT: /www/wwwroot/wiki.hs-fpv.com
 
 jobs:
-  # Job 1: Build the code (no secrets here)
   build:
-    permissions:
-      actions: read
-      contents: read
-      deployments: write
-      pull-requests: write
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
+    permissions:
+      contents: read
     steps:
-      - name: Checkout code
+      - name: Check out source
         uses: actions/checkout@v5
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          persist-credentials: false  # Don't persist GitHub token
 
-      - name: Cache node_modules
-        uses: actions/cache@v4
-        with:
-          path: node_modules/
-          key: node_modules-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
-
-      - name: Setup node
+      - name: Set up Node.js
         uses: actions/setup-node@v5
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: ./package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build package
-        id: build-package
+      - name: Build site
         run: npm run build
         env:
           BASE_PATH: /
-          URL: https://betaflight.com
-          ORG: betaflight
+          URL: https://wiki.hs-fpv.com
+          ORG: Niu-wei-ba
 
-      - name: Upload build artifact
+      - name: Upload site artifact
         uses: actions/upload-artifact@v4
         with:
-          name: build-files
+          name: wiki-site
           path: build
+          retention-days: 1
 
-  # Job 2: Deploy with secrets (no PR code checkout)
   deploy:
-    needs: build  # Wait for build job to complete
-    permissions:
-      actions: read
-      contents: read
-      deployments: write
-      pull-requests: write
+    needs: build
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
+    permissions: {}
     steps:
-      - name: Download build artifact
+      - name: Download site artifact
         uses: actions/download-artifact@v4
         with:
-          name: build-files
+          name: wiki-site
           path: build
 
-      - name: Set short git commit SHA
-        id: vars
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.WIKI_DEPLOY_SSH_PRIVATE_KEY }}
         run: |
-          calculatedSha=$(echo ${{ github.event.pull_request.head.sha }} | head -c 8)
-          echo "COMMIT_SHORT_SHA=$calculatedSha" >> $GITHUB_ENV
+          test -n "$SSH_PRIVATE_KEY" || { echo 'WIKI_DEPLOY_SSH_PRIVATE_KEY is not configured.'; exit 1; }
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
 
-      - name: Set alias branch name for Cloudflare (if a push)
-        id: branch_push
-        if: github.event_name == 'push'
+      - name: Upload and activate release
+        env:
+          RELEASE_NAME: wiki-${{ github.sha }}
         run: |
-          echo "BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
-
-      - name: Set alias branch name for Cloudflare (if a pull_request)
-        id: branch_pull
-        if: github.event_name == 'pull_request_target' || github.event_name == 'pull_request'
-        run: |
-          echo "BRANCH=PR${{ github.event.pull_request.number }}" >> $GITHUB_ENV
-
-      - name: Deploy to Cloudflare
-        id: deploy
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy build --project-name=${{ vars.CLOUDFLARE_PROJECT_NAME }} --branch=${{ env.BRANCH }} --commit-dirty=true
-
-      - name: Add deployment comment
-        if: github.event_name == 'pull_request_target' || github.event_name == 'pull_request'
-        uses: thollander/actions-comment-pull-request@v3
-        with:
-          message: |
-             Preview URL: ${{ steps.deploy.outputs.pages-deployment-alias-url }}
-          comment-tag: 'Preview URL'
-          mode: recreate
+          set -euo pipefail
+          release_path="$DEPLOY_ROOT/releases/$RELEASE_NAME"
+          ssh -i ~/.ssh/deploy_key "$DEPLOY_USER@$DEPLOY_HOST" "mkdir -p '$release_path'"
+          rsync -az --delete -e 'ssh -i ~/.ssh/deploy_key' build/ "$DEPLOY_USER@$DEPLOY_HOST:$release_path/"
+          ssh -i ~/.ssh/deploy_key "$DEPLOY_USER@$DEPLOY_HOST" "set -e; ln -sfn '$release_path' '$DEPLOY_ROOT/current.next'; mv -Tf '$DEPLOY_ROOT/current.next' '$DEPLOY_ROOT/current'; find '$DEPLOY_ROOT/releases' -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\\n' | sort -nr | awk 'NR > 5 {print \$2}' | xargs -r rm -rf"

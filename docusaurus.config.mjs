@@ -21,13 +21,13 @@ const sortDescending = new Set(['release']);
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Betaflight',
-  tagline: 'Pushing the limits of UAV performance',
+  title: '花生FPV | BF 中文 Wiki',
+  tagline: 'Betaflight 中文 Wiki、BF地面站与黑匣子分析',
   url: process.env.URL,
   baseUrl: process.env.BASE_PATH,
   trailingSlash: false,
   onBrokenLinks: 'warn',
-  favicon: '/img/betaflight/icon_light.svg',
+  favicon: '/favicon.ico',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -40,7 +40,13 @@ const config = {
   // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'zh-CN'],
+    localeConfigs: {
+      'zh-CN': {
+        label: '简体中文',
+        htmlLang: 'zh-CN',
+      },
+    },
   },
 
   markdown: {
@@ -79,7 +85,14 @@ const config = {
       }),
     ],
     'docusaurus-plugin-sass',
-    require.resolve('docusaurus-lunr-search'),
+    [
+      require.resolve('docusaurus-lunr-search'),
+      {
+        // TinySegmenter provides browser-compatible CJK tokenization for the
+        // static Lunr index; lunr's zh plugin requires a Node-only dependency.
+        languages: ['en', 'ja'],
+      },
+    ],
     async function tailwind() {
       return {
         name: 'docusaurus-tailwindcss',
@@ -140,17 +153,19 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      image: '/img/hs-fpv/wiki-hero.webp',
       colorMode: {
         defaultMode: 'dark',
         disableSwitch: false,
         respectPrefersColorScheme: true,
       },
       navbar: {
-        title: 'Betaflight',
+        title: '花生FPV ｜ BF 中文 WIKI',
         logo: {
-          alt: 'Betaflight Logo',
-          src: 'img/betaflight/icon_light.svg',
-          srcDark: 'img/betaflight/icon_dark.svg',
+          alt: '花生 FPV Logo',
+          href: '/docs/wiki',
+          src: '/img/hs-fpv/logo-mark.png',
+          srcDark: '/img/hs-fpv/logo-mark.png',
         },
         items: [
           //   {
@@ -160,36 +175,7 @@ const config = {
           //     label: 'Wiki',
           //   },
           {
-            type: 'docSidebar',
-            sidebarId: 'wiki',
-            position: 'left',
-            label: 'Wiki',
-          },
-          {
-            type: 'docSidebar',
-            sidebarId: 'development',
-            position: 'left',
-            label: 'Development',
-          },
-          {
-            to: '/download',
-            label: 'Download',
-            position: 'left',
-          },
-          {
-            to: '/stats',
-            label: 'Stats',
-            position: 'left',
-          },
-          {
-            type: 'docSidebar',
-            sidebarId: 'sponsors',
-            position: 'left',
-            label: 'Sponsors',
-          },
-          {
-            to: '/blog',
-            label: 'Blog',
+            type: 'localeDropdown',
             position: 'right',
           },
           {
@@ -197,123 +183,16 @@ const config = {
             position: 'right',
             items: [
               {
-                label: 'Blackbox Explorer',
-                href: 'https://blackbox.betaflight.com',
+                label: 'BlackBox Explorer镜像站',
+                href: 'https://bbe.hs-fpv.com',
               },
               {
-                label: 'Betaflight App',
-                href: 'https://app.betaflight.com/',
-              },
-            ],
-          },
-          {
-            label: 'GitHub',
-            position: 'right',
-            items: [
-              {
-                label: 'Firmware',
-                href: 'https://github.com/betaflight/betaflight',
-              },
-              {
-                label: 'App',
-                href: 'https://github.com/betaflight/betaflight-configurator',
-              },
-              {
-                label: 'Blackbox Explorer',
-                href: 'https://github.com/betaflight/blackbox-log-viewer',
-              },
-              {
-                label: 'Website',
-                href: 'https://github.com/betaflight/betaflight.com',
-              },
-              {
-                label: 'Support Explorer',
-                href: 'https://github.com/betaflight/betaflight-support-explorer',
-              },
-              {
-                label: 'Targets',
-                href: 'https://github.com/betaflight/config',
+                label: 'BF镜像地面站',
+                href: 'https://bf.hs-fpv.com',
               },
             ],
           },
         ],
-      },
-      footer: {
-        style: 'dark',
-        logo: {
-          src: 'img/betaflight/icon_dark.svg',
-        },
-        links: [
-          {
-            title: 'Youtube',
-            items: [
-              {
-                label: 'Joshua Bardwell',
-                href: 'https://www.youtube.com/channel/UCX3eufnI7A2I7IkKHZn8KSQ',
-                icon: 'youtube',
-              },
-              {
-                label: 'Ivan Efimov',
-                href: 'https://www.youtube.com/channel/UCQtdpSBYlsWH6_m1Us_d8dg',
-                icon: 'youtube',
-              },
-            ],
-          },
-          {
-            title: 'Links',
-            items: [
-              {
-                label: 'Oscar Liang',
-                href: 'https://oscarliang.com/',
-                icon: 'site',
-              },
-              {
-                label: 'VitroidFPV',
-                href: 'https://www.vitroidfpv.com/',
-                icon: 'site',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Discord',
-                href: 'https://discord.betaflight.com/invite',
-                icon: 'discord',
-              },
-              {
-                label: 'IntoFPV',
-                href: 'https://intofpv.com/',
-                icon: 'forum',
-              },
-            ],
-          },
-          {
-            title: 'Feeds',
-            items: [
-              {
-                label: 'RSS',
-                href: '/blog/rss.xml',
-                icon: 'blog',
-                target: '_blank',
-              },
-              {
-                label: 'Atom',
-                href: '/blog/atom.xml',
-                icon: 'blog',
-                target: '_blank',
-              },
-              {
-                label: 'JSON',
-                href: '/blog/feed.json',
-                icon: 'blog',
-                target: '_blank',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} All rights reserved Team Betaflight`,
       },
       prism: {
         theme: lightCodeTheme,
