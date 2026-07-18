@@ -14,7 +14,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     permissions:
       contents: read
     steps:
@@ -38,24 +38,31 @@ jobs:
           URL: https://wiki.hs-fpv.com
           ORG: Niu-wei-ba
 
+      - name: Pack site artifact
+        run: tar -czf wiki-site.tar.gz build
+
       - name: Upload site artifact
         uses: actions/upload-artifact@v4
         with:
           name: wiki-site
-          path: build
+          path: wiki-site.tar.gz
+          compression-level: 0
           retention-days: 1
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 30
     permissions: {}
     steps:
       - name: Download site artifact
         uses: actions/download-artifact@v4
         with:
           name: wiki-site
-          path: build
+          path: .
+
+      - name: Extract site artifact
+        run: tar -xzf wiki-site.tar.gz
 
       - name: Configure SSH
         env:
@@ -74,5 +81,5 @@ jobs:
           set -euo pipefail
           release_path="$DEPLOY_ROOT/releases/$RELEASE_NAME"
           ssh -i ~/.ssh/deploy_key "$DEPLOY_USER@$DEPLOY_HOST" "mkdir -p '$release_path'"
-          rsync -az --delete -e 'ssh -i ~/.ssh/deploy_key' build/ "$DEPLOY_USER@$DEPLOY_HOST:$release_path/"
+          rsync -az --delete --link-dest="$DEPLOY_ROOT/current" -e 'ssh -i ~/.ssh/deploy_key' build/ "$DEPLOY_USER@$DEPLOY_HOST:$release_path/"
           ssh -i ~/.ssh/deploy_key "$DEPLOY_USER@$DEPLOY_HOST" "set -e; ln -sfn '$release_path' '$DEPLOY_ROOT/current.next'; mv -Tf '$DEPLOY_ROOT/current.next' '$DEPLOY_ROOT/current'; find '$DEPLOY_ROOT/releases' -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\\n' | sort -nr | awk 'NR > 5 {print \$2}' | xargs -r rm -rf"
