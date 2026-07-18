@@ -81,5 +81,5 @@ jobs:
           set -euo pipefail
           release_path="$DEPLOY_ROOT/releases/$RELEASE_NAME"
           ssh -i ~/.ssh/deploy_key "$DEPLOY_USER@$DEPLOY_HOST" "mkdir -p '$release_path'"
-          rsync -az --delete --link-dest="$DEPLOY_ROOT/current" -e 'ssh -i ~/.ssh/deploy_key' build/ "$DEPLOY_USER@$DEPLOY_HOST:$release_path/"
+          rsync -azc --no-times --delete --link-dest="$DEPLOY_ROOT/current" -e 'ssh -i ~/.ssh/deploy_key' build/ "$DEPLOY_USER@$DEPLOY_HOST:$release_path/"
           ssh -i ~/.ssh/deploy_key "$DEPLOY_USER@$DEPLOY_HOST" "set -e; ln -sfn '$release_path' '$DEPLOY_ROOT/current.next'; mv -Tf '$DEPLOY_ROOT/current.next' '$DEPLOY_ROOT/current'; find '$DEPLOY_ROOT/releases' -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\\n' | sort -nr | awk 'NR > 5 {print \$2}' | xargs -r rm -rf"
