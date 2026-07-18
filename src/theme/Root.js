@@ -1,6 +1,14 @@
-import React from 'react';
+import React from 'react'
+import { Redirect, useLocation } from '@docusaurus/router'
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 
-// Default implementation, that you can customize
 export default function Root({ children }) {
-  return <>{children}</>;
+  const { i18n } = useDocusaurusContext()
+  const { pathname } = useLocation()
+
+  if (i18n.currentLocale === i18n.defaultLocale && pathname === '/') {
+    return <Redirect to="/zh-CN/" />
+  }
+
+  return <>{children}</>
 }
