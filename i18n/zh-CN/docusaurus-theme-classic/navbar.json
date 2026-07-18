@@ -1,0 +1,70 @@
+{
+  "title": {
+    "message": "花生FPV ｜ BF 中文 WIKI",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "花生 FPV Logo",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Wiki": {
+    "message": "百科",
+    "description": "Navbar item with label Wiki"
+  },
+  "item.label.Development": {
+    "message": "开发",
+    "description": "Navbar item with label Development"
+  },
+  "item.label.Download": {
+    "message": "下载",
+    "description": "Navbar item with label Download"
+  },
+  "item.label.Stats": {
+    "message": "统计",
+    "description": "Navbar item with label Stats"
+  },
+  "item.label.Sponsors": {
+    "message": "赞助商",
+    "description": "Navbar item with label Sponsors"
+  },
+  "item.label.Blog": {
+    "message": "博客",
+    "description": "Navbar item with label Blog"
+  },
+  "item.label.Apps": {
+    "message": "应用",
+    "description": "Navbar item with label Apps"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  },
+  "item.label.BlackBox Explorer镜像站": {
+    "message": "BlackBox Explorer镜像站",
+    "description": "Navbar item with label BlackBox Explorer镜像站"
+  },
+  "item.label.BF镜像地面站": {
+    "message": "BF镜像地面站",
+    "description": "Navbar item with label BF镜像地面站"
+  },
+  "item.label.Firmware": {
+    "message": "固件",
+    "description": "Navbar item with label Firmware"
+  },
+  "item.label.App": {
+    "message": "应用程序",
+    "description": "Navbar item with label App"
+  },
+  "item.label.Website": {
+    "message": "网站",
+    "description": "Navbar item with label Website"
+  },
+  "item.label.Support Explorer": {
+    "message": "Support Explorer",
+    "description": "Navbar item with label Support Explorer"
+  },
+  "item.label.Targets": {
+    "message": "目标配置",
+    "description": "Navbar item with label Targets"
+  }
+}

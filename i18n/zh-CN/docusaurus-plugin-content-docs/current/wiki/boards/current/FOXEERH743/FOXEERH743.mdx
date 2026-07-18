@@ -1,0 +1,121 @@
+---
+description: Foxeer H7 MPU6000 8S flight controller (target FOXEERH743)
+sidebar_custom_props:
+  specs:
+    target: FOXEERH743
+    mcu: STM32H743
+    imu: MPU6000 # ships MPU6000; target also auto-detects MPU6500 / ICM42688P
+    osd: AT7456E # inferred MAX7456-compatible clone (rule 6); config only defines USE_MAX7456, Foxeer lists "BF OSD"
+    barometer: DPS310
+    blackbox: 16MB
+    dimensions: 37 x 37 mm # full-size version; a 30 x 31 mm Mini variant shares the product name
+    mounting: 30.5 x 30.5 mm (Φ4mm)
+    weight: 7.8 g
+  last_updated: '2026-07-06'
+  support_url: 'https://www.foxeer.com/foxeer-h7-mpu6000-fc-8s-dual-bec-barometer-x8-g-503'
+  betaflight_supported: true
+  connector_standard: false
+  doc_status: partial # electricals verified vs config.h; UART default functions removed (were ArduPilot-sourced); images and some pad labels pending
+  confidence: 80
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import SpecGrid from '@site/src/components/SpecGrid'
+
+# Foxeer H7 MPU6000
+
+<Tabs>
+
+<TabItem value="specifications" label="规格" default>
+
+<SpecGrid>
+
+{/* TODO(image): add a 1:1 square cover photo (top view), supplied by the manufacturer. e.g. ![FOXEERH743](./FOXEERH743-images/FOXEERH743-top.png) */}
+
+</SpecGrid>
+
+## 其他特性
+
+- SD 卡插槽：无（Blackbox 使用 16 MB 板载 Flash）
+- 板载接收机：无（通过 UART 外接接收机）
+- 硬件反相器：无
+- Bluetooth：无
+- WiFi：无
+- 板载 RGB LED：无（提供 1 个 WS2812 可寻址 LED 灯带输出焊盘）
+
+## 输入/输出
+
+- USB 接口：USB Type-C
+- 输入电压：4S-8S LiPo
+- 电机输出：8 路（支持 X8）
+- 舵机输出：2 路（S1、S2；target 为 `SERVO1_PIN`/`SERVO2_PIN`）
+- UART：target 定义 7 个（UART1、2、3、4、6、7、8）；Foxeer 提供 6 组完整 RX/TX 和 1 个 `Rx8` ESC 遥测焊盘，target 仍为 UART8 定义了 TX 引脚
+- I2C：有（引出供外置罗盘/外设使用）
+- SWD：待确认
+- SPI：待确认
+- 3.3 V 输出：0.5 A
+- 4.5 V（VBUS）输出：待确认
+- 5 V 输出：2 A（BEC，供板载电路和外设使用）
+- 10 V 输出：2 A（BEC，供图传使用）
+- 电流传感器：提供电流输入焊盘，通常接收 4 合 1 ESC 的电流信号（默认电流标度为 100）
+- 模拟 RSSI 输入：有
+- LED 灯带输出：有
+- 蜂鸣器输出：有
+
+## 焊盘
+
+焊盘丝印为 `Rn`（UARTn RX）和 `Tn`（UARTn TX）。备注列给出制造商/默认推荐用途；所有 UART 均可在 Betaflight 中重新分配。
+
+### UART
+
+| 名称   | 标签    | 备注                                                                     |
+| ------ | ------- | ------------------------------------------------------------------------ |
+| UART 1 | R1 / T1 | 默认串行 RC/接收机输入（target `SERIALRX_UART`）                         |
+| UART 2 | R2 / T2 | 预留/用户使用                                                            |
+| UART 3 | R3 / T3 | 预留/用户使用                                                            |
+| UART 4 | R4 / T4 | 预留/用户使用                                                            |
+| UART 6 | R6 / T6 | 预留/用户使用                                                            |
+| UART 7 | R7 / T7 | 预留/用户使用                                                            |
+| UART 8 | R8 / T8 | ESC 遥测（Foxeer `Rx8`）；制造商仅引出 RX 焊盘，但 target 定义了 TX 引脚 |
+
+### 电源
+
+{/* TODO(verify): pad counts and exact silkscreen labels not confirmed from a layout diagram — confirm counts before stating them (rule 5). */}
+
+| 名称     | 标签 | 备注                            |
+| -------- | ---- | ------------------------------- |
+| 电池电压 | —    | 4S-8S LiPo 输入，带板载电压检测 |
+| 5 V BEC  | 5V   | 2 A，供板载电路和外设使用       |
+| 10 V BEC | 10V  | 2 A，供图传使用                 |
+| 3.3V     | 3V3  | 0.5A                            |
+
+## 连接器
+
+{/* TODO(verify): connector/JST pinouts not confirmed from the manufacturer manual (manuals.plus and the Foxeer product page could not be retrieved in this environment). */}
+
+</TabItem>
+
+<TabItem value="wiring" label="接线图">
+
+{/* TODO(image): add wiring / pinout diagram to ./FOXEERH743-images/, supplied by the manufacturer. */}
+
+</TabItem>
+
+<TabItem value="photos" label="照片">
+
+{/* TODO(image): add clean top/bottom photos to ./FOXEERH743-images/, supplied by the manufacturer. */}
+
+</TabItem>
+
+<TabItem value="notes" label="备注">
+
+- 制造商：[Foxeer](https://www.foxeer.com/)，[产品页](https://www.foxeer.com/foxeer-h7-mpu6000-fc-8s-dual-bec-barometer-x8-g-503)。
+- 本页说明**标准尺寸** Foxeer H7 MPU6000（37 x 37 mm，30.5 x 30.5 mm 安装孔距）。Foxeer 还以同一产品名销售 [**Mini** 版本](https://www.foxeer.com/foxeer-h7-mini-mpu6000-fc-8s-dual-bec-barometer-g-504)（约 30 x 31 mm、20 x 20 mm 孔距、约 5.6 g）；使用上述物理尺寸前请确认具体版本。
+- 出厂陀螺仪为 MPU6000；`FOXEERH743` target 还包含 MPU6500 和 ICM42688P 驱动，以自动识别不同硬件修订版。
+- OSD 芯片推定为兼容 MAX7456 的克隆器件（通常为 AT7456E）：配置仅定义 `USE_MAX7456`，Foxeer 规格仅标注“BF OSD”，具体丝印尚未确认。
+- 双 BEC：5 V/2 A 供飞控和外设，10 V/2 A 供图传，另有 3.3 V/0.5 A 电源轨。
+
+</TabItem>
+
+</Tabs>

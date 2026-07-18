@@ -9,7 +9,7 @@ export default function DocItemMetadata() {
       title={metadata.title}
       description={metadata.description}
       keywords={frontMatter.keywords}
-      image={`https://vitroidfpv.com/og-bf?title=${metadata.title}&description=${metadata.description}`}
+      image="/img/hs-fpv/wiki-hero.webp"
     />
   );
 }

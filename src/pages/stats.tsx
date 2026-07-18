@@ -273,7 +273,7 @@ const MinorChartWrapper = ({ type }) => {
 
 export default function Stats() {
   return (
-    <BetaflightLayout>
+    <BetaflightLayout title="Build Statistics" description="花生FPV 提供 Betaflight 固件构建统计与趋势数据。">
       <div className="xl:max-w-[1920px] w-full p-6 mt-0 xl:mt-16">
         <HomepageFeature blur title="Cloud Build Statistics">
           <div className="flex flex-col w-full h-full">

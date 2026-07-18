@@ -4,7 +4,7 @@ import HomepageFeature from '../components/HomepageFeature';
 
 export default function PrivacyPolicy() {
   return (
-    <BetaflightLayout>
+    <BetaflightLayout title="Privacy Policy" description="花生FPV 的隐私政策与数据处理说明。">
       <div className="m-auto p-6 mt-0 xl:mt-16 w-full max-w-6xl">
         <HomepageFeature blur title="Privacy Policy">
           <div className="w-full max-w-5xl">

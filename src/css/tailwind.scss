@@ -84,6 +84,13 @@
       @apply inline-block;
     }
   }
+
+  @media (max-width: 996px) {
+    .navbar__items:not(.navbar__items--right) {
+      padding-right: 9.5rem;
+    }
+  }
+
   &__search-input {
 	@apply bg-neutral-500/10 focus-visible:outline-primary-500 focus-visible:outline-2 focus-visible:outline #{!important}
   }

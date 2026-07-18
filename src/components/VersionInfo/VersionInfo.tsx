@@ -1,5 +1,5 @@
 import { useDoc } from '@docusaurus/plugin-content-docs/client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import semver from 'semver';
 
 function isUpToDate(currentVersion, latestVersion) {
@@ -22,18 +22,17 @@ export default function VersionInfo() {
   const [upToDate, setUpToDate] = useState(true);
   const [versionLatest, setVersionLatest] = useState('');
 
-  fetch('https://api.github.com/repos/betaflight/betaflight/releases/latest', {
-    headers: {
-      Authorization: 'TODO',
-    },
-  })
-    .then((response) => response.json())
-    .then((json) => {
-      setVersionLatest(json.tag_name);
-      if (versionLte) {
-        setUpToDate(isUpToDate(versionLte, json.tag_name));
-      }
-    });
+  useEffect(() => {
+    fetch('https://api.github.com/repos/betaflight/betaflight/releases/latest')
+      .then((response) => response.json())
+      .then((json) => {
+        setVersionLatest(json.tag_name);
+        if (versionLte) {
+          setUpToDate(isUpToDate(versionLte, json.tag_name));
+        }
+      })
+      .catch(() => undefined);
+  }, [versionLte]);
 
   return (
     <div className={`${versionGte || versionLte ? 'pt-4 pb-8' : ''} gap-2 flex flex-col`}>

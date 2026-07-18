@@ -1,43 +1,86 @@
 ---
 sidebar_position: 0
-sidebar_label: Welcome!
+sidebar_label: Home
+title: Betaflight Wiki
+description: Practical Betaflight documentation for firmware installation, configuration, tuning, hardware, and troubleshooting.
+pagination_next: null
+pagination_prev: null
 ---
 
-# Welcome to the Wiki
+import Link from '@docusaurus/Link'
 
-## Find everything betaflight related
+# Betaflight Wiki
 
-You may or may not know that there was an old GitHub wiki. On one hand, it was a great resource to find
-all sorts of info... on the other, it was pretty clunky, outdated and hard to maintain. So we decided to
-upgrade it to a new, more modern support section, which you're currently reading!
+Practical documentation for getting a flight controller from first connection to a confident flight. Use the guides below to install firmware, configure your aircraft, tune its response, and solve common problems.
 
-:::caution Work in progress
+<div className="wiki-index__actions">
+  <Link className="button button--primary" to="/docs/wiki/getting-started">Get Started</Link>
+  <Link className="button button--secondary" to="/docs/wiki/guides/current/FAQ">Find an Answer</Link>
+</div>
 
-This support section is still new and is very much a work in progress. Pages going to be added, updated and improved
-pretty every day in the weeks to come. So if you're missing something, please be patient. It will come!
-You can also help us out, check out the `#documentation` channel on the
-[Discord server](https://discord.betaflight.com/invite) for more info.
+## Start With a Task
 
-:::
+<div className="wiki-index__grid wiki-index__grid--tasks">
+  <Link className="wiki-index__card" to="/docs/wiki/getting-started/firmware-installation">
+    <strong>Install Firmware</strong>
+    <span>Prepare your flight controller and flash the correct Betaflight release.</span>
+  </Link>
+  <Link className="wiki-index__card" to="/docs/wiki/getting-started/setup-guide">
+    <strong>Complete Initial Setup</strong>
+    <span>Set up ports, receiver, motors, modes, OSD, and essential safety checks.</span>
+  </Link>
+  <Link className="wiki-index__card" to="/docs/wiki/app">
+    <strong>Use Betaflight App</strong>
+    <span>Learn the configurator tabs, connection options, and daily workflow.</span>
+  </Link>
+  <Link className="wiki-index__card" to="/docs/category/tuning-notes">
+    <strong>Tune Your Flight</strong>
+    <span>Understand PID tuning, filters, presets, and Blackbox-based adjustments.</span>
+  </Link>
+  <Link className="wiki-index__card" to="/docs/wiki/getting-started/troubleshooting">
+    <strong>Troubleshoot a Problem</strong>
+    <span>Work through connection, receiver, arming, motor, and video issues.</span>
+  </Link>
+</div>
 
-## What's new?
+## Browse by Topic
 
-The new support section is built with [Docusaurus](https://docusaurus.io/), which is far better than what the
-GitHub Wiki feature offers. It's a lot more modern, easier to maintain and has a lot more features. Plus,
-I'd say that it looks a lot better too.
+<div className="wiki-index__grid wiki-index__grid--topics">
+  <Link className="wiki-index__card" to="/docs/wiki/getting-started">
+    <strong>Getting Started</strong>
+    <span>Core concepts, installation, first setup, and troubleshooting.</span>
+  </Link>
+  <Link className="wiki-index__card" to="/docs/category/release-notes">
+    <strong>Release Notes</strong>
+    <span>Review changes, compatibility notes, and version-specific guidance.</span>
+  </Link>
+  <Link className="wiki-index__card" to="/docs/category/tuning-notes">
+    <strong>Tuning Notes</strong>
+    <span>Reference material for performance tuning and filtering.</span>
+  </Link>
+  <Link className="wiki-index__card" to="/docs/wiki/guides">
+    <strong>Guides</strong>
+    <span>In-depth feature, hardware, protocol, and troubleshooting guides.</span>
+  </Link>
+  <Link className="wiki-index__card" to="/docs/wiki/app">
+    <strong>Betaflight App</strong>
+    <span>Documentation for the desktop and web configurator.</span>
+  </Link>
+  <Link className="wiki-index__card" to="/docs/category/boards">
+    <strong>Flight Controller Boards</strong>
+    <span>Find target information and board-specific references.</span>
+  </Link>
+</div>
 
-We're planning on writing nearly every page from scratch, so that we can make sure that the information
-is up to date and correct. This does mean that we're going to be missing a lot of pages for a little while.
+## Tools
 
-## How to use
-
-Support is split up into different sections. You can find the sidebar on the left side of the page,
-which contains links to all the different sections. You can also use the search bar at the top of the
-page to search for a specific word or phrase
-
-## How to contribute
-
-If you want to help out, you can do so by creating a pull request on the [GitHub repo](https://github.com/betaflight/betaflight.com). You can find a reference
-page for writing MDX with the features we use, and if you're still not sure how to do something, you can
-ask in the `#documentation` channel on the [Discord server](https://discord.betaflight.com/invite) as we
-mentioned above
+<div className="wiki-index__tools">
+  <a href="https://bf.hs-fpv.com" target="_blank" rel="noopener noreferrer">
+    <strong>BF App Mirror</strong>
+    <span>Open the community Betaflight App mirror.</span>
+  </a>
+  <a href="https://bbe.hs-fpv.com" target="_blank" rel="noopener noreferrer">
+    <strong>Blackbox Explorer Mirror</strong>
+    <span>Analyze a flight log in the community mirror.</span>
+  </a>
+</div>

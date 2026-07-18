@@ -1,23 +1,27 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 type Props = {
   children: React.ReactNode
+  title?: string
+  description?: string
 }
 
-export default function BetaflightLayout({ children }: Props) {
+export default function BetaflightLayout({ children, title, description }: Props) {
   const { siteConfig } = useDocusaurusContext();
+  const backgroundUrl = useBaseUrl('/img/betaflight/background.svg');
 
   return (
-    <Layout title={`${siteConfig.tagline}`} description="Are you ready to fly?">
+    <Layout title={title ?? siteConfig.tagline} description={description ?? '花生FPV 提供 Betaflight 中文 Wiki、BF地面站与黑匣子分析工具。'}>
       <div
         className="absolute w-full pointer-events-none -z-20 dark:brightness-50 dark:opacity-100 opacity-60"
         style={{
           WebkitMaskImage: 'linear-gradient(transparent, black, transparent)',
         }}
       >
-        <img src="img/betaflight/background.svg" alt="Background" />
+        <img src={backgroundUrl} alt="" aria-hidden="true" />
       </div>
       <div className="absolute w-full -z-10 md:top-0">
         <svg className="max-w-full h-fit" width="100%" height="1200" viewBox="0 0 2700 1200" fill="none" xmlns="http://www.w3.org/2000/svg">

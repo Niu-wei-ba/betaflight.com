@@ -1,0 +1,110 @@
+{
+  "version.label": {
+    "message": "最新版本",
+    "description": "The label for version current"
+  },
+  "sidebar.development.category.Manufacturer": {
+    "message": "制造商",
+    "description": "The label for category 'Manufacturer' in sidebar 'development'"
+  },
+  "sidebar.development.category.FC Documentation Examples": {
+    "message": "飞控文档示例",
+    "description": "The label for category 'FC Documentation Examples' in sidebar 'development'"
+  },
+  "sidebar.development.category.API": {
+    "message": "API",
+    "description": "The label for category 'API' in sidebar 'development'"
+  },
+  "sidebar.development.category.API.link.generated-index.description": {
+    "message": "API 文档",
+    "description": "The generated-index page description for category 'API' in sidebar 'development'"
+  },
+  "sidebar.development.category.Building": {
+    "message": "构建",
+    "description": "The label for category 'Building' in sidebar 'development'"
+  },
+  "sidebar.development.category.Building.link.generated-index.description": {
+    "message": "在不同平台上构建的指南",
+    "description": "The generated-index page description for category 'Building' in sidebar 'development'"
+  },
+  "sidebar.development.category.Debugging": {
+    "message": "调试",
+    "description": "The label for category 'Debugging' in sidebar 'development'"
+  },
+  "sidebar.development.category.Debugging.link.generated-index.description": {
+    "message": "在不同平台上调试的指南",
+    "description": "The generated-index page description for category 'Debugging' in sidebar 'development'"
+  },
+  "sidebar.development.category.autopilot": {
+    "message": "自动驾驶",
+    "description": "The label for category 'autopilot' in sidebar 'development'"
+  },
+  "sidebar.wiki.category.Getting started": {
+    "message": "入门",
+    "description": "The label for category 'Getting started' in sidebar 'wiki'"
+  },
+  "sidebar.wiki.category.Hardware": {
+    "message": "硬件",
+    "description": "The label for category 'Hardware' in sidebar 'wiki'"
+  },
+  "sidebar.wiki.category.Release Notes": {
+    "message": "发布说明",
+    "description": "The label for category 'Release Notes' in sidebar 'wiki'"
+  },
+  "sidebar.wiki.category.release-older": {
+    "message": "旧版",
+    "description": "The label for category 'Older' in sidebar 'wiki'"
+  },
+  "sidebar.wiki.category.Tuning Notes": {
+    "message": "调参说明",
+    "description": "The label for category 'Tuning Notes' in sidebar 'wiki'"
+  },
+  "sidebar.wiki.category.tuning-older": {
+    "message": "旧版",
+    "description": "The label for category 'Older' in sidebar 'wiki'"
+  },
+  "sidebar.wiki.category.Guides": {
+    "message": "指南",
+    "description": "The label for category 'Guides' in sidebar 'wiki'"
+  },
+  "sidebar.wiki.category.guides-current": {
+    "message": "当前版本",
+    "description": "The label for category 'Current' in sidebar 'wiki'"
+  },
+  "sidebar.wiki.category.guides-archive": {
+    "message": "归档",
+    "description": "The label for category 'Archive' in sidebar 'wiki'"
+  },
+  "sidebar.wiki.category.Betaflight App": {
+    "message": "Betaflight 应用程序",
+    "description": "The label for category 'Betaflight App' in sidebar 'wiki'"
+  },
+  "sidebar.wiki.category.Boards": {
+    "message": "飞控",
+    "description": "The label for category 'Boards' in sidebar 'wiki'"
+  },
+  "sidebar.wiki.category.boards-current": {
+    "message": "当前支持",
+    "description": "The label for category 'Current' in sidebar 'wiki'"
+  },
+  "sidebar.wiki.category.boards-current.link.generated-index.description": {
+    "message": "遵循当前格式的最新飞控文档。",
+    "description": "The generated-index page description for category 'Current' in sidebar 'wiki'"
+  },
+  "sidebar.wiki.category.boards-archive": {
+    "message": "归档",
+    "description": "The label for category 'Archive' in sidebar 'wiki'"
+  },
+  "sidebar.wiki.category.boards-archive.link.generated-index.description": {
+    "message": "不符合当前格式、未更新或已不再支持的飞控文档归档。",
+    "description": "The generated-index page description for category 'Archive' in sidebar 'wiki'"
+  },
+  "sidebar.wiki.category.Legacy": {
+    "message": "旧版硬件",
+    "description": "The label for category 'Legacy' in sidebar 'wiki'"
+  },
+  "sidebar.wiki.category.Legacy.link.generated-index.description": {
+    "message": "已完全停止支持的飞控文档归档。",
+    "description": "The generated-index page description for category 'Legacy' in sidebar 'wiki'"
+  }
+}
