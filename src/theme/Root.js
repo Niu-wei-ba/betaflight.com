@@ -7,7 +7,7 @@ export default function Root({ children }) {
   const { pathname } = useLocation()
 
   if (i18n.currentLocale === i18n.defaultLocale && pathname === '/') {
-    return <Redirect to="/zh-CN/" />
+    return <Redirect to="/zh-CN/docs/wiki" />
   }
 
   return <>{children}</>
