@@ -1,14 +1,15 @@
-import React from 'react'
-import { Redirect, useLocation } from '@docusaurus/router'
+import React, { useEffect } from 'react'
+import { useLocation } from '@docusaurus/router'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 
 export default function Root({ children }) {
   const { i18n } = useDocusaurusContext()
   const { pathname } = useLocation()
+  const shouldRedirectToChinese = i18n.currentLocale === i18n.defaultLocale && pathname === '/'
 
-  if (i18n.currentLocale === i18n.defaultLocale && pathname === '/') {
-    return <Redirect to="/zh-CN/docs/wiki" />
-  }
+  useEffect(() => {
+    if (shouldRedirectToChinese) window.location.replace('/zh-CN/docs/wiki')
+  }, [shouldRedirectToChinese])
 
-  return <>{children}</>
+  return shouldRedirectToChinese ? null : <>{children}</>
 }
