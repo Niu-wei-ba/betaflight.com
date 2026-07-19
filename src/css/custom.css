@@ -210,6 +210,54 @@ html.docs-doc-id-wiki\/wiki .theme-doc-markdown > h2::before {
   min-height: 0;
 }
 
+.wiki-index__tools--featured {
+  gap: 0.85rem;
+  margin: 0 0 1.25rem;
+}
+
+.wiki-index__tools--featured a {
+  background: color-mix(in srgb, var(--ifm-color-primary) 7%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ifm-color-primary) 34%, var(--wiki-index-border));
+  border-radius: 8px;
+  min-height: 10.5rem;
+  padding: 1.1rem 1.2rem 1.15rem;
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.wiki-index__tools--featured a:hover {
+  background: color-mix(in srgb, var(--ifm-color-primary) 11%, transparent);
+  border-color: var(--ifm-color-primary-dark);
+  box-shadow: 0 8px 22px rgba(30, 32, 35, 0.08);
+  transform: translateY(-2px);
+}
+
+.wiki-index__tools--featured .wiki-index__tool-kicker {
+  color: var(--ifm-color-primary-darkest);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  margin: 0 0 0.7rem;
+  text-transform: uppercase;
+}
+
+.wiki-index__tools--featured strong {
+  color: var(--wiki-index-heading);
+  font-size: 1.08rem;
+}
+
+.wiki-index__tools--featured .wiki-index__tool-action {
+  color: var(--ifm-color-primary-darkest);
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-top: auto;
+  padding-top: 0.9rem;
+}
+
+html.docs-doc-id-wiki\/wiki[data-theme='dark'] .wiki-index__tools--featured a:hover {
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
+}
+
 @media (max-width: 640px) {
   html.docs-doc-id-wiki\/wiki .theme-doc-markdown > h1 {
     font-size: 2.15rem;
@@ -234,9 +282,17 @@ html.docs-doc-id-wiki\/wiki .theme-doc-markdown > h2::before {
     grid-template-columns: 1fr;
   }
 
+  .wiki-index__tools--featured {
+    gap: 0.75rem;
+  }
+
   .wiki-index__card,
   .wiki-index__tools a {
     min-height: 0;
+  }
+
+  .wiki-index__tools--featured a {
+    min-height: 9.75rem;
   }
 
   .wiki-index__grid--tasks .wiki-index__card:last-child:nth-child(odd) {
@@ -246,7 +302,8 @@ html.docs-doc-id-wiki\/wiki .theme-doc-markdown > h2::before {
 
 @media (prefers-reduced-motion: reduce) {
   .wiki-index__card,
-  .wiki-index__tools a {
+  .wiki-index__tools a,
+  .wiki-index__tools--featured a {
     transition: none;
   }
 }

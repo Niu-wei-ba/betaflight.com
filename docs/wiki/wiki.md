@@ -13,6 +13,21 @@ import Link from '@docusaurus/Link'
 
 Practical documentation for getting a flight controller from first connection to a confident flight. Use the guides below to install firmware, configure your aircraft, tune its response, and solve common problems.
 
+<div className="wiki-index__tools wiki-index__tools--featured">
+  <a href="https://bf.hs-fpv.com" target="_blank" rel="noopener noreferrer">
+    <span className="wiki-index__tool-kicker">Accelerated mirror</span>
+    <strong>BF App</strong>
+    <span>Use the accelerated community mirror to connect your flight controller and flash Betaflight firmware online, with no installation required.</span>
+    <span className="wiki-index__tool-action">Open BF App</span>
+  </a>
+  <a href="https://bbe.hs-fpv.com" target="_blank" rel="noopener noreferrer">
+    <span className="wiki-index__tool-kicker">Online tool</span>
+    <strong>Blackbox Explorer</strong>
+    <span>Open and analyze Blackbox flight logs online to inspect traces and key data for troubleshooting and tuning.</span>
+    <span className="wiki-index__tool-action">Open Blackbox Explorer</span>
+  </a>
+</div>
+
 <div className="wiki-index__actions">
   <Link className="button button--primary" to="/docs/wiki/getting-started">Get Started</Link>
   <Link className="button button--secondary" to="/docs/wiki/guides/current/FAQ">Find an Answer</Link>
@@ -70,17 +85,4 @@ Practical documentation for getting a flight controller from first connection to
     <strong>Flight Controller Boards</strong>
     <span>Find target information and board-specific references.</span>
   </Link>
-</div>
-
-## Tools
-
-<div className="wiki-index__tools">
-  <a href="https://bf.hs-fpv.com" target="_blank" rel="noopener noreferrer">
-    <strong>BF App Mirror</strong>
-    <span>Open the community Betaflight App mirror.</span>
-  </a>
-  <a href="https://bbe.hs-fpv.com" target="_blank" rel="noopener noreferrer">
-    <strong>Blackbox Explorer Mirror</strong>
-    <span>Analyze a flight log in the community mirror.</span>
-  </a>
 </div>

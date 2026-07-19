@@ -13,6 +13,21 @@ import Link from '@docusaurus/Link'
 
 面向中文飞手的 Betaflight 实用文档。从刷写固件、首次配置到调参与故障排查，按实际任务快速找到可靠的操作说明。
 
+<div className="wiki-index__tools wiki-index__tools--featured">
+  <a href="https://bf.hs-fpv.com" target="_blank" rel="noopener noreferrer">
+    <span className="wiki-index__tool-kicker">镜像加速</span>
+    <strong>BF 地面站</strong>
+    <span>国内镜像加速，无需安装，可直接连接飞控并在线刷写 Betaflight 固件。</span>
+    <span className="wiki-index__tool-action">打开 BF 地面站</span>
+  </a>
+  <a href="https://bbe.hs-fpv.com" target="_blank" rel="noopener noreferrer">
+    <span className="wiki-index__tool-kicker">在线工具</span>
+    <strong>Blackbox Explorer</strong>
+    <span>在线打开并分析飞行黑匣子日志，查看曲线与关键数据，辅助排查和调参。</span>
+    <span className="wiki-index__tool-action">打开 Blackbox Explorer</span>
+  </a>
+</div>
+
 <div className="wiki-index__actions">
   <Link className="button button--primary" to="/docs/wiki/getting-started">开始使用</Link>
   <Link className="button button--secondary" to="/docs/wiki/guides/current/FAQ">查找问题答案</Link>
@@ -70,17 +85,4 @@ import Link from '@docusaurus/Link'
     <strong>飞控板资料</strong>
     <span>查找目标信息和特定飞控板的参考资料。</span>
   </Link>
-</div>
-
-## 工具
-
-<div className="wiki-index__tools">
-  <a href="https://bf.hs-fpv.com" target="_blank" rel="noopener noreferrer">
-    <strong>BF 地面站镜像</strong>
-    <span>打开社区维护的 Betaflight App 镜像。</span>
-  </a>
-  <a href="https://bbe.hs-fpv.com" target="_blank" rel="noopener noreferrer">
-    <strong>Blackbox Explorer 镜像</strong>
-    <span>使用社区镜像分析飞行黑匣子日志。</span>
-  </a>
 </div>
