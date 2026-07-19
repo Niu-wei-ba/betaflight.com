@@ -60,9 +60,9 @@ const config = {
 
   scripts: [
     {
-      src: 'https://cdn.telemetrydeck.com/websdk/telemetrydeck.min.js',
-      'data-app-id': 'CDC108A1-CA11-4111-B086-0474C07C3D0F',
-      async: false,
+      src: 'https://umami.hs-fpv.cn/script.js',
+      'data-website-id': '3e3f7f8c-5010-4191-a2b7-295c5abaab4c',
+      defer: true,
     },
   ],
 
